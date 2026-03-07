@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Light to Dark Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Logo Light to Dark Converter</h1>
+            <p class="subtitle">Convert white logos to black for light mode websites</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p class="drop-text">Drag & drop logo images here</p>
+                    <p class="drop-subtext">or</p>
+                    <button class="browse-btn" id="browseBtn">Browse Files</button>
+                    <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    <p class="file-info">Supports PNG, JPG, JPEG, WebP • Multiple files</p>
+                </div>
+            </section>
+
+            <!-- Processing Status -->
+            <section class="status-section" id="statusSection" style="display: none;">
+                <div class="status-bar">
+                    <div class="status-text" id="statusText">Processing images...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Converted Images (<span id="imageCount">0</span>)</h2>
+                    <button class="download-all-btn" id="downloadAllBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download All as ZIP
+                    </button>
+                </div>
+                <div class="results-grid" id="resultsGrid"></div>
+                <button class="reset-btn" id="resetBtn">Convert More Images</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>All processing happens locally in your browser • No data is uploaded to any server</p>
+        </footer>
+    </div>
+
+    <!-- Hidden template for result items -->
+    <template id="resultItemTemplate">
+        <div class="result-item">
+            <div class="image-comparison">
+                <div class="image-box">
+                    <span class="image-label">ORIGINAL</span>
+                    <img class="original-img" alt="Original">
+                </div>
+                <div class="image-box">
+                    <span class="image-label">CONVERTED</span>
+                    <img class="converted-img" alt="Converted">
+                </div>
+            </div>
+            <div class="image-name"></div>
+            <div class="format-controls">
+                <div class="control-group">
+                    <label class="control-label">Conversion Mode:</label>
+                    <select class="mode-select">
+                        <option value="white-to-black" selected>White → Black (Light Mode)</option>
+                        <option value="black-to-white">Black → White (Dark Mode)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Format:</label>
+                    <select class="format-select">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="webp" selected>WebP</option>
+                    </select>
+                </div>
+                <div class="control-group quality-control">
+                    <label class="control-label">Quality: <span class="quality-value">90</span>%</label>
+                    <input type="range" class="quality-slider" min="1" max="100" value="90">
+                </div>
+            </div>
+            <button class="download-btn">Download</button>
+        </div>
+    </template>
+
+    <!-- JSZip library for creating ZIP files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="image-processor.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
