@@ -37,8 +37,17 @@ class App {
      */
     attachEventListeners() {
         // Browse button
-        this.browseBtn.addEventListener('click', () => {
+        this.browseBtn.addEventListener('click', (e) => {
+            // The button sits inside the drop zone, which opens the picker too.
+            e.stopPropagation();
             this.fileInput.click();
+        });
+
+        this.dropZone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.fileInput.click();
+            }
         });
 
         // File input change

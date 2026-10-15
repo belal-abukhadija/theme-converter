@@ -3,102 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logo Light to Dark Converter</title>
+    <meta name="description" content="Turn white logos black for light backgrounds, or black logos white for dark ones. Batch convert and download as a ZIP. Runs in your browser.">
+    <title>Logo Light to Dark</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="wb.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Logo Light to Dark Converter</h1>
-            <p class="subtitle">Convert white logos to black for light mode websites</p>
-        </header>
+<body class="wb">
+    <header class="wb-bar">
+        <a class="wb-brand" href="./">
+            <span class="wb-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/>
+                </svg>
+            </span>
+            <span class="wb-brand-text">
+                <span class="wb-brand-name">Logo Light to Dark</span>
+                <span class="wb-brand-owner">Belal's tools</span>
+            </span>
+        </a>
+        <div class="wb-bar-end">
+            <span class="wb-note">Runs in your browser</span>
+        </div>
+    </header>
 
-        <main>
-            <!-- Upload Section -->
-            <section class="upload-section">
-                <div class="drop-zone" id="dropZone">
-                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <main class="wb-page">
+        <div class="wb-head">
+            <h1 class="wb-title">Flip a logo for the other background</h1>
+            <p class="wb-lede">White logos turn black for light pages, black logos turn white for dark ones. Transparency and the darker details stay as they were.</p>
+        </div>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="wb-drop" id="dropZone" role="button" tabindex="0" aria-label="Choose logo images">
+                <span class="wb-drop-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="17 8 12 3 7 8"></polyline>
                         <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
-                    <p class="drop-text">Drag & drop logo images here</p>
-                    <p class="drop-subtext">or</p>
-                    <button class="browse-btn" id="browseBtn">Browse Files</button>
-                    <input type="file" id="fileInput" accept="image/*" multiple hidden>
-                    <p class="file-info">Supports PNG, JPG, JPEG, WebP • Multiple files</p>
-                </div>
-            </section>
+                </span>
+                <p class="wb-drop-title">Drop logo images here</p>
+                <p class="wb-drop-hint">PNG, JPG or WebP. Several at once is fine.</p>
+                <button class="wb-btn wb-btn--primary" id="browseBtn" type="button">Choose files</button>
+                <input type="file" id="fileInput" accept="image/*" multiple hidden>
+            </div>
+        </section>
 
-            <!-- Processing Status -->
-            <section class="status-section" id="statusSection" style="display: none;">
-                <div class="status-bar">
-                    <div class="status-text" id="statusText">Processing images...</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
+        <!-- Processing Status -->
+        <section class="status-section" id="statusSection" style="display: none;">
+            <div class="wb-panel">
+                <div class="status-text" id="statusText">Processing images...</div>
+                <div class="wb-progress">
+                    <span class="progress-fill" id="progressFill"></span>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Results Section -->
-            <section class="results-section" id="resultsSection" style="display: none;">
-                <div class="results-header">
-                    <h2>Converted Images (<span id="imageCount">0</span>)</h2>
-                    <button class="download-all-btn" id="downloadAllBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2 class="wb-h2">Converted <span class="wb-num results-count" id="imageCount">0</span></h2>
+                <div class="wb-row">
+                    <button class="wb-btn wb-btn--quiet" id="resetBtn" type="button">Start over</button>
+                    <button class="wb-btn wb-btn--primary" id="downloadAllBtn" type="button">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Download All as ZIP
+                        Download all as ZIP
                     </button>
                 </div>
-                <div class="results-grid" id="resultsGrid"></div>
-                <button class="reset-btn" id="resetBtn">Convert More Images</button>
-            </section>
-        </main>
+            </div>
+            <div class="results-grid" id="resultsGrid"></div>
+        </section>
+    </main>
 
-        <footer>
-            <p>All processing happens locally in your browser • No data is uploaded to any server</p>
-        </footer>
-    </div>
+    <footer class="wb-foot">
+        <span>Made by <a href="mailto:belalabukhadija97@gmail.com">Belal</a></span>
+        <span>More free tools at <a href="https://belal.work" target="_blank" rel="noopener noreferrer">belal.work</a></span>
+    </footer>
 
     <!-- Hidden template for result items -->
     <template id="resultItemTemplate">
-        <div class="result-item">
+        <div class="result-item wb-panel">
             <div class="image-comparison">
-                <div class="image-box">
-                    <span class="image-label">ORIGINAL</span>
-                    <img class="original-img" alt="Original">
-                </div>
-                <div class="image-box">
-                    <span class="image-label">CONVERTED</span>
-                    <img class="converted-img" alt="Converted">
-                </div>
+                <figure class="image-box image-box--before">
+                    <img class="original-img" alt="Original logo">
+                    <figcaption>Before</figcaption>
+                </figure>
+                <figure class="image-box image-box--after">
+                    <img class="converted-img" alt="Converted logo">
+                    <figcaption>After</figcaption>
+                </figure>
             </div>
             <div class="image-name"></div>
             <div class="format-controls">
                 <div class="control-group">
-                    <label class="control-label">Conversion Mode:</label>
-                    <select class="mode-select">
-                        <option value="white-to-black" selected>White → Black (Light Mode)</option>
-                        <option value="black-to-white">Black → White (Dark Mode)</option>
+                    <label class="wb-label">Direction</label>
+                    <select class="mode-select wb-select">
+                        <option value="white-to-black" selected>White to black, for light pages</option>
+                        <option value="black-to-white">Black to white, for dark pages</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Format:</label>
-                    <select class="format-select">
+                    <label class="wb-label">Format</label>
+                    <select class="format-select wb-select">
                         <option value="png">PNG</option>
                         <option value="jpeg">JPEG</option>
                         <option value="webp" selected>WebP</option>
                     </select>
                 </div>
                 <div class="control-group quality-control">
-                    <label class="control-label">Quality: <span class="quality-value">90</span>%</label>
-                    <input type="range" class="quality-slider" min="1" max="100" value="90">
+                    <div class="wb-label-row">
+                        <label class="wb-label">Quality</label>
+                        <span class="wb-num"><span class="quality-value">90</span>%</span>
+                    </div>
+                    <input type="range" class="quality-slider wb-range" min="1" max="100" value="90">
                 </div>
             </div>
-            <button class="download-btn">Download</button>
+            <button class="download-btn wb-btn wb-btn--block" type="button">Download</button>
         </div>
     </template>
 
